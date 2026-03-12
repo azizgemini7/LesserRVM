@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "42656840839",
+    "project_id": "lessernaqaa",
+    "storage_bucket": "lessernaqaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42656840839:android:77f73994a3fe5f68604c22",
+        "android_client_info": {
+          "package_name": "com.lesser.androidapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZj_puw7srPuLrn-yQeJoAr4_f2VoKHVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
