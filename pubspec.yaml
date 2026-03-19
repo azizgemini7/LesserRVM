@@ -1,7 +1,7 @@
 name: zatyatflutter
-description: A recycling project.
+description: An RVM for recycling.
 
-version: 1.0.24+24
+version: 1.0.1+1
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
