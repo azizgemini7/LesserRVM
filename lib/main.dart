@@ -29,7 +29,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
+// import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -45,41 +45,6 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  // Initialize SharedPreferences to load the saved language
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  // String savedLanguage =
-  //     prefs.getString('language') ?? 'en'; // Default to English
-
-  if (await FirebaseMessaging.instance.isSupported()) {
-    // Request permission to display notifications
-    await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    // Get any initial message that opened the app from a terminated state
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if (message != null) {
-        // Handle the notification payload
-      }
-    });
-  }
-
-  // Disable App Check on all platforms
-  // FirebaseAppCheck.instance.activate(
-  //   webProvider: null, // No reCAPTCHA for web
-  //   androidProvider: AndroidProvider.debug,
-  //   appleProvider: AppleProvider.debug,
-  // );
 
   runApp(MyApp());
 }
@@ -301,7 +266,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         Navigator.pop(context);
       } catch (_) {}
 
-      _showError("Something went wrong. Please try again.");
+      _showError("Something went wrong. Please try again!.");
     }
   }
 
@@ -416,54 +381,54 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   width: 62,
                                 ),
                                 const SizedBox(height: 8),
-                                FutureBuilder<String?>(
-                                  future:
-                                      FirebaseAuth.instance.currentUser?.uid !=
-                                              null
-                                          ? FirebaseFirestore.instance
-                                              .collection('users')
-                                              .doc(FirebaseAuth
-                                                  .instance.currentUser!.uid)
-                                              .get()
-                                              .then(
-                                                (snapshot) => snapshot
-                                                    .data()!['bottles']
-                                                    .toString(),
-                                              )
-                                          : Future.value(null),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasError) {
-                                      return Text(
-                                        'Error: ${snapshot.error}',
-                                        style: const TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      );
-                                    }
-                                    switch (snapshot.connectionState) {
-                                      case ConnectionState.waiting:
-                                        return Text(
-                                          '...',
-                                          style: AppTypo.heading3.copyWith(
-                                            color: ApplicationColors.primary,
-                                          ),
-                                        );
-                                      default:
-                                        final data = snapshot.data ?? '0';
-                                        final numberOfBottles =
-                                            int.tryParse(data) ?? 0;
-                                        final totalCO2 =
-                                            numberOfBottles * 0.015;
-                                        return Text(
-                                          totalCO2.toStringAsFixed(3),
-                                          style: AppTypo.heading3.copyWith(
-                                            color: ApplicationColors.secondary,
-                                          ),
-                                        );
-                                    }
-                                  },
-                                ),
+                                // FutureBuilder<String?>(
+                                //   future:
+                                //       FirebaseAuth.instance.currentUser?.uid !=
+                                //               null
+                                //           ? FirebaseFirestore.instance
+                                //               .collection('users')
+                                //               .doc(FirebaseAuth
+                                //                   .instance.currentUser!.uid)
+                                //               .get()
+                                //               .then(
+                                //                 (snapshot) => snapshot
+                                //                     .data()!['bottles']
+                                //                     .toString(),
+                                //               )
+                                //           : Future.value(null),
+                                //   builder: (context, snapshot) {
+                                //     if (snapshot.hasError) {
+                                //       return Text(
+                                //         'Error: ${snapshot.error}',
+                                //         style: const TextStyle(
+                                //           fontSize: 16.0,
+                                //           fontWeight: FontWeight.bold,
+                                //         ),
+                                //       );
+                                //     }
+                                //     switch (snapshot.connectionState) {
+                                //       case ConnectionState.waiting:
+                                //         return Text(
+                                //           '...',
+                                //           style: AppTypo.heading3.copyWith(
+                                //             color: ApplicationColors.primary,
+                                //           ),
+                                //         );
+                                //       default:
+                                //         final data = snapshot.data ?? '0';
+                                //         final numberOfBottles =
+                                //             int.tryParse(data) ?? 0;
+                                //         final totalCO2 =
+                                //             numberOfBottles * 0.015;
+                                //         return Text(
+                                //           totalCO2.toStringAsFixed(3),
+                                //           style: AppTypo.heading3.copyWith(
+                                //             color: ApplicationColors.secondary,
+                                //           ),
+                                //         );
+                                //     }
+                                //   },
+                                // ),
                                 const SizedBox(height: 4),
                                 Text(
                                   translate('co2_emissions', targetLanguage),
@@ -491,49 +456,49 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   width: 62,
                                 ),
                                 const SizedBox(height: 8),
-                                FutureBuilder<String?>(
-                                  future:
-                                      FirebaseAuth.instance.currentUser?.uid !=
-                                              null
-                                          ? FirebaseFirestore.instance
-                                              .collection('users')
-                                              .doc(FirebaseAuth
-                                                  .instance.currentUser!.uid)
-                                              .get()
-                                              .then(
-                                                (snapshot) => snapshot
-                                                    .data()!['waste']
-                                                    .toString(),
-                                              )
-                                          : Future.value(null),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasError) {
-                                      return Text(
-                                        'Error: ${snapshot.error}',
-                                        style: const TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      );
-                                    }
-                                    switch (snapshot.connectionState) {
-                                      case ConnectionState.waiting:
-                                        return Text(
-                                          '...',
-                                          style: AppTypo.heading3.copyWith(
-                                            color: AppTextColors.primary,
-                                          ),
-                                        );
-                                      default:
-                                        return Text(
-                                          snapshot.data ?? '0',
-                                          style: AppTypo.heading3.copyWith(
-                                            color: ApplicationColors.secondary,
-                                          ),
-                                        );
-                                    }
-                                  },
-                                ),
+                                // FutureBuilder<String?>(
+                                //   future:
+                                //       FirebaseAuth.instance.currentUser?.uid !=
+                                //               null
+                                //           ? FirebaseFirestore.instance
+                                //               .collection('users')
+                                //               .doc(FirebaseAuth
+                                //                   .instance.currentUser!.uid)
+                                //               .get()
+                                //               .then(
+                                //                 (snapshot) => snapshot
+                                //                     .data()!['waste']
+                                //                     .toString(),
+                                //               )
+                                //           : Future.value(null),
+                                //   builder: (context, snapshot) {
+                                //     if (snapshot.hasError) {
+                                //       return Text(
+                                //         'Error: ${snapshot.error}',
+                                //         style: const TextStyle(
+                                //           fontSize: 16.0,
+                                //           fontWeight: FontWeight.bold,
+                                //         ),
+                                //       );
+                                //     }
+                                //     switch (snapshot.connectionState) {
+                                //       case ConnectionState.waiting:
+                                //         return Text(
+                                //           '...',
+                                //           style: AppTypo.heading3.copyWith(
+                                //             color: AppTextColors.primary,
+                                //           ),
+                                //         );
+                                //       default:
+                                //         return Text(
+                                //           snapshot.data ?? '0',
+                                //           style: AppTypo.heading3.copyWith(
+                                //             color: ApplicationColors.secondary,
+                                //           ),
+                                //         );
+                                //     }
+                                //   },
+                                // ),
                                 const SizedBox(height: 4),
                                 Text(
                                   translate('kg_waste', targetLanguage),
