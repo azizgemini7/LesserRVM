@@ -43,7 +43,7 @@ dependencies:
   ## Env packages
   cloud_functions: ^5.1.0
   geolocator: ^13.0.1
-  google_maps_flutter: ^2.11.0
+  google_maps_flutter: ^2.7.0
 
   ## Net packages
   firebase_analytics: ^11.3.0

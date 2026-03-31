@@ -23,10 +23,7 @@ class DefaultFirebaseOptions {
           'it not supported by FlutLab yet, but you can add it manually',
         );
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'it not supported by FlutLab yet, but you can add it manually',
-        );
+        return linux;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -44,12 +41,11 @@ class DefaultFirebaseOptions {
       projectId: 'lessernaqaa');
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBZj_puw7srPuLrn-yQeJoAr4_f2VoKHVs',
-    appId: '1:42656840839:android:77f73994a3fe5f68604c22',
-    messagingSenderId: '42656840839',
-    projectId: 'lessernaqaa',
-    storageBucket: 'lessernaqaa.appspot.com'
-  );
+      apiKey: 'AIzaSyBZj_puw7srPuLrn-yQeJoAr4_f2VoKHVs',
+      appId: '1:42656840839:android:77f73994a3fe5f68604c22',
+      messagingSenderId: '42656840839',
+      projectId: 'lessernaqaa',
+      storageBucket: 'lessernaqaa.appspot.com');
 
   static const FirebaseOptions web = FirebaseOptions(
       apiKey: 'AIzaSyAy5KCLHwwIaqcDytOAARYz0EIizcSod4Y',
@@ -59,4 +55,13 @@ class DefaultFirebaseOptions {
       messagingSenderId: '42656840839',
       appId: '1:42656840839:web:e5213885af4c6846604c22',
       measurementId: 'G-T44WZCQFTK');
+
+  static const FirebaseOptions linux = FirebaseOptions(
+    apiKey: 'AIzaSyAy5KCLHwwIaqcDytOAARYz0EIizcSod4Y',
+    authDomain: 'lessernaqaa.firebaseapp.com',
+    projectId: 'lessernaqaa',
+    storageBucket: 'lessernaqaa.appspot.com',
+    messagingSenderId: '42656840839',
+    appId: '1:42656840839:web:e5213885af4c6846604c22',
+  );
 }
