@@ -23,7 +23,10 @@ class DefaultFirebaseOptions {
           'it not supported by FlutLab yet, but you can add it manually',
         );
       case TargetPlatform.linux:
-        return linux;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'it not supported by FlutLab yet, but you can add it manually',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -55,13 +58,4 @@ class DefaultFirebaseOptions {
       messagingSenderId: '42656840839',
       appId: '1:42656840839:web:e5213885af4c6846604c22',
       measurementId: 'G-T44WZCQFTK');
-
-  static const FirebaseOptions linux = FirebaseOptions(
-    apiKey: 'AIzaSyAy5KCLHwwIaqcDytOAARYz0EIizcSod4Y',
-    authDomain: 'lessernaqaa.firebaseapp.com',
-    projectId: 'lessernaqaa',
-    storageBucket: 'lessernaqaa.appspot.com',
-    messagingSenderId: '42656840839',
-    appId: '1:42656840839:web:e5213885af4c6846604c22',
-  );
 }

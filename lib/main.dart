@@ -46,10 +46,6 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
   runApp(MyApp());
 }
 
@@ -200,14 +196,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Future<void> _submit() async {
     _formKey.currentState!.save();
 
-    // ✅ 1. Simple validation (don't skip this)
     if (_enteredPhone.isEmpty) {
       _showError("Please enter your phone number");
       return;
     }
 
     try {
-      // ✅ 2. Show loading
+      // ✅ 1. Show loading
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -226,17 +221,37 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         ),
       );
 
-      // ✅ 3. Firestore query
-      var querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('phone_number', isEqualTo: _enteredPhone)
-          .limit(1)
-          .get();
+      // ✅ 2. Firestore REST query
+      final url = Uri.parse(
+        "https://firestore.googleapis.com/v1/projects/lessernaqaa/databases/(default)/documents:runQuery",
+      );
+
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "structuredQuery": {
+            "from": [
+              {"collectionId": "users"}
+            ],
+            "where": {
+              "fieldFilter": {
+                "field": {"fieldPath": "phone_number"},
+                "op": "EQUAL",
+                "value": {"stringValue": _enteredPhone}
+              }
+            },
+            "limit": 1
+          }
+        }),
+      );
 
       Navigator.pop(context); // close loading
 
-      // ❌ 4. Not found
-      if (querySnapshot.docs.isEmpty) {
+      final data = jsonDecode(response.body);
+
+      // ❌ 3. Not found
+      if (data.isEmpty || data[0]["document"] == null) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -253,24 +268,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         return;
       }
 
-      // ✅ 5. FOUND → go to next screen
-      final userDoc = querySnapshot.docs.first;
+      // ✅ 4. Extract userId
+      final docPath = data[0]["document"]["name"];
+      final userId = docPath.split("/").last;
 
+      // ✅ 5. Navigate
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => WeightScreen(
             phone: _enteredPhone,
-            userId: userDoc.id,
+            userId: userId,
           ),
         ),
       );
     } catch (e) {
-      // ✅ 6. General error (NOT FirebaseAuth anymore)
       try {
         Navigator.pop(context);
       } catch (_) {}
-
-      _showError("Something went wrong. Please try again!.");
+      _showError("Something went wrong. Please try again!");
     }
   }
 
